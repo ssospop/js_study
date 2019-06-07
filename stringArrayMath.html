@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>String & Array & Math Objects</title>
+    <script>
+        function isBlank(x){
+            if (x.length==0){
+            return true
+            }
+            else{
+                return false
+            }
+        }
+
+        function StrToArray(x){
+            return x.trim().split(" ");
+        }
+        //trim() : 왼쪽 오른쪽 공백 없애는 메소드
+
+        function truncate_string(x, y){
+            return x.slice(0,y);
+        }
+
+        function abbr_name(x){
+            var y = x.trim().split(" ");
+            if(y.length > 1){ // 조건을 달아주지 않으면 한 단어 일 때 오류가 생김
+            return y[0] + " " + y[1].charAt(0) + ".";
+            }
+        }
+
+        function protect_email(x){
+            var y = x.split("@");
+            return y[0].slice(0,4) + "..." + y[1];
+        }
+
+        function degrees_to_radians(x){
+            var y = x * Math.PI / 180; //MATH 내장 객체
+            return y;
+        }
+
+        function random_bg_color(){
+            var color = new Array('red', 'yellow', 'green','blue', 'purple', 'white');
+            var y = Math.floor(Math.random() * color.length);
+            return color[y];
+        }
+
+        function thousands_separators(x){
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+</head>
+<body>
+
+    
+</body>
+</html>
