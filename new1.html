@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        /*
+        var y = new Date();
+        var x = document.getElementById("clockhere");
+        x.innerHTML = y.toLocaleTimeString();
+
+        document.getElementById("clock").innerHTML = "아씨";
+        */
+       
+        function myFocus(x){
+            x.style.backgroundColor = "yellow";
+        }
+        function myBlur(x){
+            x.style.backgroundColor = "white";
+        }
+        function lightSwitch(){
+            var img = document.getElementById("mybulb");
+            // 늘 변수 선언을 해줄때는 document.DOM객체 까지, 프로퍼티 더 붙히면 작동이 안됨
+            if( img.src.match("bulboff")){
+                img.src = "http://www.w3schools.com/js/bulbon.gif";
+            } //match 메소드 : ()안의 문자가 들어가 있는가?
+            else{
+                img.src = "http://www.w3schools.com/js/bulboff.gif";
+            }
+        }
+        function myText(){
+            document.querySelector("div>p#text").style.color= document.getElementsByName("color")[0].value;
+            document.getElementById("TextColor").innerHTML = document.getElementsByName("color")[0].value;
+        }
+        function myBackground(){
+            document.querySelector("div").style.backgroundColor= document.getElementsByName("color")[1].value;
+            document.getElementById("bgColor").innerHTML = document.getElementsByName("color")[1].value;
+        }
+
+        function myLotto(){
+            var numbers = new Array();
+            var count = 0;
+
+            //굳이 배열이라고 몇번째 수인지 명시해주지 않아도 숫자만 입력하면 알아서 배열로 들어감
+            while(count < 6){
+                var n = Math.floor(Math.random()* 45) +1 ;
+                if(numbers.indexOf(n) == -1 ){
+                    numbers.push(n);
+                    count++;
+                }
+            }
+            
+            /* 중복값 검사 : 도대체 왜 안되는지 모를 ㅡㅡ
+            for(var i=0; i<numbers.length; i++){
+                numbers[i] = Math.floor(Math.random()* 45) + 1 ;
+                if(numbers.indexOf('numbers[i]') === -1 ){
+                    numbers.concat(numbers[i]);
+                }
+            }
+            */
+            document.getElementById("lotto").innerHTML = numbers;
+        }
+
+        function mover(x){
+            x.style.backgroundColor = "lightpink";
+            x.innerHTML = "Mouse Over Me";
+            x.style.fontWeight = "bold";
+        }
+        //기본 style이 무엇이든 마우스를 over, out 반복이니까 over, out 둘다 설정해줘야한다.
+        
+        function mout(x){
+            x.style.backgroundColor="green";
+            x.innerHTML = "ok, good job";
+        }
+
+        function calculate(){
+            var x = document.getElementById("subtotal");
+            var y = document.getElementById("tip"); //여기서는 숫자형인가?...왜 밑의 연산이 되는지? 곱은 문자열을 곱해도 되도, 더하는 건 안되나보다
+            var z = x.value * (y.value * 0.01); //x.value는 Id가 ""인 것에 입력한 값.
+            document.getElementById("total").innerHTML = parseFloat(x.value) + parseFloat(z);
+        }
+
+        function tick(){
+            var x = document.getElementById("sec");
+            var y = parseInt(x.value);
+            var z = y * 1000;
+            var c = document.getElementById("sec").value;
+
+            if( y > 0){
+                document.getElementById("sec").value = c;
+                c--;
+            }
+            else{
+            setTimeout( function(){ alert("good good");}, z);
+            }
+            /*
+            var f = setInterval(myTimer, 1000);
+            function myTimer(){
+                document.getElementById("sec").value = c;
+                c--;
+            }*/
+    
+        
+        /*
+        window.onload = function() {
+            document.getElementById("clock").onclick = startClock;
+        }
+        
+        function startClock(){
+            var currentDate = new Date();
+            var clock = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            var m = setInterval(clock, 500);
+            document.getElementById("clock").innerHTML = m;
+        }
+        */
+            
+        }
+    </script>
+</head>
+<body>
+    <p> (1) 인풋 필드를 focus하면 background-color가 노란색으로, blur되면 white로</p>
+    First : <input onfocus="myFocus(this)" onblur="myBlur(this)" type = "text">
+    Last : <input onfocus="myFocus(this)" onblur="myBlur(this)" type = "text">
+    <hr>
+    
+    <p>(2) <img src="http://www.w3schools.com/js/bulboff.gif" id="mybulb" height = "70" width="40">
+    <input type="button" value="Switch" onclick="lightSwitch()"> </p>
+    <hr>
+
+    <p>(3) 선택한 컬러 명시, 바뀌기
+        <br>
+        <div id="testArea" style="width:100; height:60; border:1px solid;">
+        <p id="text">
+        Select Text Color <input name="color" type="color" onchange="myText(this)"> : <span id="TextColor"></span> <br>
+        Select Background Color <input name="color" type="color" onchange="myBackground(this)"> : <span id="bgColor"></span>
+        </div>
+        </p>
+    </p>
+    <hr>
+
+    <p>(4) 로또 넘버 추출 (1-45에서 랜덤 숫자 6개 추출)</p>
+    <input type="button" onclick="myLotto()" value="Good Luck!"><span id="lotto"></span>
+    <hr>
+
+    <p>(5) <span onmouseover="mover(this)" onmouseout="mout(this)" style="background-color:lightpink; width:150px; height:20px; padding:5px;"><b>Mouse Over Me</b></span></p>
+    <hr>
+
+    <p>(6) 팁계산, 팁과 퍼센트 입력하면, 내야하는 팁을 계산 후 총 내야할 값을 알려준다 <br>
+    Tip Calculator : 
+    $ Subtotal : <input id="subtotal" type="text">
+    %Tip : <input id="tip" type="text">
+    <input id="calculate" value="Calulate" onclick="calculate();" type="button">
+    Your total : <span id="total"> $0.00</span>
+    </p>
+    <hr>
+
+    <p>(7) 텍스트 상자 안에 숫자 입력하면 타이머 기능을 하고, 입력한 숫자가 지나면 alert가 뜬다<br>
+        Alarm : <input id="sec" size="6" type="text"> sec  
+        <input id="go" value="Go" onclick="tick();" type="button">
+        
+    </p>
+    <hr>
+
+    <p>(8) 선택한 체크박스의 변환 공식에 따라 입력한 숫자를 맞게 변환해주는 것 <br>
+    Convert : <input id="weight" size="6" type="text">
+    <select id="convert">
+      <option value="kgtopounds">kg to lb</option>
+      <option value="poundstokg">lb to kg</option>
+    </select>
+    <button id="calculate" onclick="convert()">Calculate</button>
+    <span id="answer"> </span>
+    (Hint: lb = kg * 2.20462262, kg = lb * 0.45359237)
+    </p>
+    <hr>
+
+    <p>(9) 현재 방문했을때의 시간, start clock을 누르면 시간이 간다 
+    Digital Clock : <button onclick="startClock();">Start</button>
+    <span id="clockhere"></span>
+    <button onclick="clearInterval();">Stop clock</button>
+    </p>
+</body>
+</html>
